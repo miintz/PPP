@@ -18,7 +18,7 @@ namespace Prototype
     {
         static void Main(string[] args)
         {            
-            Console.WriteLine("Welcome to the Planetary Perceptualization Program ALPHA 0.01 by MANOS & MAARTEN");
+            Console.WriteLine("Welcome to the Planetary Perceptualization Program ALPHA 0.03 by MANOS & MAARTEN");
             Console.WriteLine("");
             Console.WriteLine("Enter planet/satellite name (e.g. Jupiter):");
             
@@ -40,7 +40,7 @@ namespace Prototype
                 Planet.setDate(Convert.ToDateTime(words[0]));
 
                 Planet.setRiseAzDate(Convert.ToDateTime(words[1]));
-                Planet.setRizeAzAngle(Convert.ToUInt32(words[2]));
+                Planet.setRiseAzAngle(Convert.ToUInt32(words[2]));
 
                 Planet.setTransitAltDate(Convert.ToDateTime(words[3]));
                 Planet.setTransitAltAngle(Convert.ToUInt32(words[4]));
@@ -64,41 +64,4 @@ namespace Prototype
             t.Dispose(); //dispose to smooth out escape
         }
     }
-
-    
-
-    public abstract class WaveProvider32 : IWaveProvider
-    {
-        private WaveFormat waveFormat;
-
-        public WaveProvider32()
-            : this(44100, 1)
-        {
-        }
-
-        public WaveProvider32(int sampleRate, int channels)
-        {
-            SetWaveFormat(sampleRate, channels);
-        }
-
-        public void SetWaveFormat(int sampleRate, int channels)
-        {
-            this.waveFormat = WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, channels);
-        }
-
-        public int Read(byte[] buffer, int offset, int count)
-        {
-            WaveBuffer waveBuffer = new WaveBuffer(buffer);
-            int samplesRequired = count / 4;
-            int samplesRead = Read(waveBuffer.FloatBuffer, offset / 4, samplesRequired);
-            return samplesRead * 4;
-        }
-
-        public abstract int Read(float[] buffer, int offset, int sampleCount);
-
-        public WaveFormat WaveFormat
-        {
-            get { return waveFormat; }
-        }
-    }    
 }

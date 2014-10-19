@@ -11,7 +11,7 @@ namespace Prototype
         public int Index { get; set; }
         public int Length { get; set; }
 
-        private String Name { get; set; }
+        public String Name { get; set; }
 
         private DateTime[] Dates { get; set; }
 
@@ -51,7 +51,7 @@ namespace Prototype
             return this.RiseAzDate[this.Index];
         }
 
-        public UInt32 getRizeAzAngle()
+        public UInt32 getRiseAzAngle()
         {
             return this.RizeAzAngle[this.Index];
         }
@@ -71,7 +71,7 @@ namespace Prototype
             return this.SetAzDate[this.Index];
         }
 
-        public UInt32 getAzAngle()
+        public UInt32 getSetAzAngle()
         {
             return this.SetAzAngle[this.Index];
         }
@@ -87,7 +87,7 @@ namespace Prototype
             this.RiseAzDate[this.Index] = d;
         }
 
-        public void setRizeAzAngle(UInt32 i)
+        public void setRiseAzAngle(UInt32 i)
         {
             this.RizeAzAngle[this.Index] = i;
         }
