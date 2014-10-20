@@ -89,7 +89,6 @@ namespace Prototype
 
         public float Frequency { get; set; }
         public float Amplitude { get; set; }
-
         public override int Read(float[] buffer, int offset, int sampleCount)
         {
             int sampleRate = WaveFormat.SampleRate;

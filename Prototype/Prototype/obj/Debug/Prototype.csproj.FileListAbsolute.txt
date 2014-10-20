@@ -10,3 +10,15 @@ O:\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bi
 O:\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\NAudio.dll
 O:\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\NAudio.xml
 O:\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\Mars.txt
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\Prototype.exe.config
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\obj\Debug\Prototype.exe
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\obj\Debug\Prototype.pdb
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\high.wav
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\Jupiter.txt
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\low.wav
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\Mars.txt
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\Prototype.exe
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\Prototype.pdb
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\NAudio.dll
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\bin\Debug\NAudio.xml
+C:\Users\Gebruiker\OneDrive\MT\Perceptualization\Project\ConsolePrototype\Prototype\Prototype\obj\Debug\Prototype.csprojResolveAssemblyReference.cache

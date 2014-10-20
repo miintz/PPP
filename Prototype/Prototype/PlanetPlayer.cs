@@ -56,8 +56,9 @@ namespace Prototype
                 Waves.AngleSineWave(PlanetData.getRiseAzAngle());
                 if (SineCounter == 25)
                 {
-                    Sine = false;
-                    Saw = true;
+                    this.Sine = false;
+                    this.Square = false;
+                    this.Saw = true;
                     SineCounter = 0;
                 }
                 else
@@ -68,9 +69,10 @@ namespace Prototype
                 Waves.AngleSawWave(PlanetData.getTransitAltAngle());
                 if (SawCounter == 25)
                 {
-                    Saw = false;
-                    Square = true;
-                    SawCounter = 0;
+                    this.Saw = false;
+                    this.Sine = false;
+                    this.Square = true;
+                    this.SawCounter = 0;
                 }
                 else
                     SawCounter++;
@@ -80,8 +82,9 @@ namespace Prototype
                 Waves.AngleSquareWave(PlanetData.getSetAzAngle());
                 if (SquareCounter == 25)
                 {
-                    Square = false;
-                    Sine = true;
+                    this.Square = false;
+                    this.Saw = false;
+                    this.Sine = true;
                     SquareCounter = 0;
                 }
                 else
