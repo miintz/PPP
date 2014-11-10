@@ -1,0 +1,147 @@
+import arb.soundcipher.*;
+int keyOffset = 20;
+
+float modeQuantize(float pitch, float[] mode, int keyOffset) {
+  pitch = round(pitch/4);
+  boolean inScale = false;
+  while(!inScale) {
+    for(int i=0; i<mode.length; i++) {
+      if ((pitch - keyOffset)%12 == mode[i]) inScale = true;
+      if(!inScale) pitch++;
+    }
+  }
+  return pitch;
+}
+float modeQuantize2(float pitch, float[] mode, int keyOffset) {
+  pitch = round(pitch);
+  boolean inScale = false;
+  while (!inScale) {
+    for (int i=0; i<mode.length; i++) {
+      if ((pitch - keyOffset)%12 == mode[i]) inScale = true;
+      if (!inScale) pitch++;
+    }
+  }
+  return pitch;
+}
+
+SoundCipher sc = new SoundCipher();
+
+float[] instruments = { 
+  sc.ACOUSTIC_GUITAR, sc.FLUTE, sc.BAG_PIPES
+};
+float currentInstrument = 0;
+
+//static HashMap params=new HashMap();
+//
+//static public void main(String args[]) {
+//  String[] newArgs=new String[args.length+1];
+//  for (int i=0; i<args.length; i++) {
+//    newArgs[i+1]=args[i];
+//    if (args[i].indexOf("=")!=-1) {
+//      String[] pair=split(args[i], '=');
+//      params.put(pair[0], pair[1]);
+//    }
+//  }
+//  // pass on to PApplet entry point
+//  this.main(newArgs);
+//}
+
+int RiseHour = 6;
+int RiseMinute = 30;
+int RiseAngle = 108;
+
+int SetHour = 21;
+int SetMinute = 30;
+int SetAngle = 252;
+
+int TransitHour = 13;
+int TransitMinute = 30;
+
+float TransitAngle = 79.0;
+
+boolean North = true;
+
+int cminute = minute();
+int chour = hour();
+float CurrentAngle; //min 0 max TransitAngle
+float CurrentRotation;
+void setup()
+{
+  println("Welcome to the Planetary Perceptualization Program (by MANOS and MAARTEN)");
+  size(500, 300);
+  String cmd = "CMD";
+}
+
+void draw()
+{
+  frameRate(getRotation(chour, cminute)/8);
+  playAngle();  
+
+  if (currentInstrument == 3)
+    currentInstrument = 0;
+  else
+    currentInstrument++;
+}
+
+void playAngle()
+{
+  //pitch, loudness, length println(sc.STEEL_GUITAR);
+  sc.playNote(60, 130, 2.0);
+  sc.playNote(getAngle(chour, cminute), 120, 6.0);
+
+  if (cminute == 59)
+  {
+    if (chour == 23)
+      chour = 0;
+    else
+      chour++;
+
+    cminute = 0;
+  } else
+    cminute++;
+}
+
+float getAngle(int hour, int minute)
+{  
+  /* [(TransitHour * 60) + TransitMinute] - [(RiseHour * 60) + RiseMinute] = diff
+   * TransitAngle / diff = MinuteAngle    
+   */
+
+  float diff = ((TransitHour * 60) + TransitMinute) - ((RiseHour * 60) + RiseMinute);
+
+
+  //at < 390 angle = ? 
+  //at 390 angle = 0
+  //at 810 angle = 79
+  //at 738 angle < 79
+  //at 1290 angle = 0
+  //at > 1290 angle = ?
+
+  println(((TransitHour * 60) + TransitMinute), ((RiseHour * 60) + RiseMinute), ((SetHour * 60) + SetMinute), ((hour * 60) + minute)); 
+
+  //als het aantal minuten hoger is dan het aantal minuten bij transitangle dan is de angle sowieso lager dan de transitangle
+
+    //79 / 420 = 0.19
+  float MinuteAngle = TransitAngle / diff; 
+
+
+  CurrentAngle = ((hour * 60) + minute) * MinuteAngle;
+
+  println("AT THE TIME: " + chour + ":" + cminute + ", THE ANGLE IS: " + CurrentAngle + " TRANSIT ANGLE: " + TransitAngle);
+
+  //angle += 1.0;
+  return CurrentAngle = modeQuantize(CurrentAngle, sc.MAJOR  , keyOffset);
+}
+float getRotation(int hour, int minute)
+{ 
+  float diff2 = ((SetHour * 60) + SetMinute) - ((RiseHour * 60) + RiseMinute);
+
+
+  float MinuteRotation = (SetAngle - RiseAngle) / diff2; 
+
+
+  CurrentRotation = ((hour * 60) + minute) * MinuteRotation;
+
+  return CurrentRotation = modeQuantize2(CurrentRotation/4, sc.MINOR, keyOffset);
+}
+

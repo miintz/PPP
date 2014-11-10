@@ -1,0 +1,143 @@
+import arb.soundcipher.*;
+import java.util.Properties;
+
+float currentInstrument = 0;
+float TransitAngle = 79.0;
+float CurrentAngle; //min 0 max TransitAngle
+
+int RiseHour = 6;
+int RiseMinute = 30;
+
+int SetHour = 21;
+int SetMinute = 30;
+
+int TransitHour = 13;
+int TransitMinute = 30;
+
+int cminute = minute();
+int chour = hour();
+int keyOffset = 20;
+
+boolean North = true;
+
+static HashMap params=new HashMap();
+static HashMap Trajectory = new HashMap();
+
+String param(String id) {
+  if (online) return super.param(id);
+  else return (String)params.get(id);
+}
+
+SoundCipher sc = new SoundCipher();
+
+float[] instruments = { 
+  sc.ACOUSTIC_GUITAR, sc.FLUTE, sc.BAG_PIPES
+};  
+
+void readFile(String file)
+{  
+ 
+//  String[] lines = File.ReadAllLines(file);
+//  PlanetData Planet = new PlanetData(name, lines.Length);
+//  
+//  for (int o = 0; o < lines.Length; o++ )
+//  {
+//      String line = lines[o];
+//      String[] words = line.Split(new char[] { ',' });                             
+//                                       
+//      Planet.setDate(Convert.ToDateTime(words[0]));
+//  
+//      Planet.setRiseAzDate(Convert.ToDateTime(words[1]));
+//      Planet.setRiseAzAngle(Convert.ToUInt32(words[2]));
+//  
+//      Planet.setTransitAltDate(Convert.ToDateTime(words[3]));
+//      Planet.setTransitAltAngle(Convert.ToUInt32(words[4]));
+//  
+//      Planet.setSetAzDate(Convert.ToDateTime(words[5]));
+//      Planet.setSetAzAngle(Convert.ToUInt32(words[6]));
+//  
+//      Planet.Index = o;
+//  }
+}
+
+float modeQuantize(float pitch, float[] mode, int keyOffset) {
+  
+  pitch = round(pitch/4);  
+  boolean inScale = false;
+  
+  while(!inScale) 
+  {
+    for(int i=0; i<mode.length; i++) 
+    {
+      if ((pitch - keyOffset) % 12 == mode[i]) 
+        inScale = true;
+      if(!inScale) 
+        pitch++;
+    }
+  }
+  return pitch;
+}
+
+void setup()
+{
+  Properties props = loadCommandLine();
+  readFile("Mars");
+  
+  size(700, 300);
+  background(0);
+    
+  text("Welcome to the Planetary Perceptualization Program (by MANOS and MAARTEN)", 30, 40);
+  text(props.toString(), 30, 60); 
+}
+
+Properties loadCommandLine () {
+
+  Properties props = new Properties();
+  
+  for (String arg:args) {
+    String[] parsed = arg.split("=", 2);
+    if (parsed.length == 2)
+      props.setProperty(parsed[0], parsed[1]);
+  }
+  
+  return props;
+}
+
+void draw()
+{
+  frameRate(5);
+  playAngle();
+
+  if (currentInstrument == 3)
+    currentInstrument = 0;
+  else
+    currentInstrument++;
+}
+
+void playAngle()
+{  
+  sc.playNote(60, 130, 2.0);
+  sc.playNote(getAngle(chour, cminute), 120, 6.0);
+
+  if (cminute == 59)
+  {
+    if (chour == 23)
+      chour = 0;
+    else
+      chour++;
+
+    cminute = 0;
+  } 
+  else
+    cminute++;
+}
+
+float getAngle(int hour, int minute)
+{  
+  float diff = ((TransitHour * 60) + TransitMinute) - ((RiseHour * 60) + RiseMinute);
+
+  float MinuteAngle = TransitAngle / diff; 
+  CurrentAngle = ((hour * 60) + minute) * MinuteAngle;
+
+  return modeQuantize(CurrentAngle, sc.MAJOR  , keyOffset);
+}
